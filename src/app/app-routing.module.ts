@@ -6,23 +6,17 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     loadChildren: () =>
-      import('./landing/landing-routing.module').then(
-        (m) => m.LandingRoutingModule,
-      ),
+      import('./landing/landing.module').then((m) => m.LandingModule),
   },
   {
     path: 'u',
     loadChildren: () =>
-      import('./profile/profile-routing.module').then(
-        (m) => m.ProfileRoutingModule,
-      ),
+      import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: 'upload',
     loadChildren: () =>
-      import('./upload/upload-routing.module').then(
-        (m) => m.UploadRoutingModule,
-      ),
+      import('./upload/upload.module').then((m) => m.UploadModule),
   },
 ];
 
