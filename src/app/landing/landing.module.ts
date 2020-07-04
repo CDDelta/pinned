@@ -4,12 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 
-
 @NgModule({
   declarations: [LandingComponent],
-  imports: [
-    CommonModule,
-    LandingRoutingModule
-  ]
+  imports: [CommonModule, LandingRoutingModule],
 })
-export class LandingModule { }
+export class LandingModule {}
