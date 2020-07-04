@@ -11,7 +11,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'p',
+    path: 'u',
     loadChildren: () =>
       import('./profile/profile-routing.module').then(
         (m) => m.ProfileRoutingModule,

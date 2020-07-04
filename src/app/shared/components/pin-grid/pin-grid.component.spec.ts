@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PictureGridComponent } from './picture-grid.component';
+import { PinGridComponent } from './pin-grid.component';
 
-describe('PictureGridComponent', () => {
-  let component: PictureGridComponent;
-  let fixture: ComponentFixture<PictureGridComponent>;
+describe('PinGridComponent', () => {
+  let component: PinGridComponent;
+  let fixture: ComponentFixture<PinGridComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PictureGridComponent ]
+      declarations: [ PinGridComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PictureGridComponent);
+    fixture = TestBed.createComponent(PinGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

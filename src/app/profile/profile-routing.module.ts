@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
-import { ProfilePostComponent } from './profile-post/profile-post.component';
+import { ProfilePinComponent } from './profile-pin/profile-pin.component';
 import { ProfileResolverService } from './profile-resolver.service';
 
 const routes: Routes = [
@@ -13,8 +13,8 @@ const routes: Routes = [
     },
   },
   {
-    path: ':profileId/i/:postId',
-    component: ProfilePostComponent,
+    path: ':profileId/p/:pinId',
+    component: ProfilePinComponent,
     resolve: {
       profile: ProfileResolverService,
     },
