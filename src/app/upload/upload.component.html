@@ -1,1 +1,85 @@
-<p>upload works!</p>
+<div class="container d-flex">
+  <img
+    class="flex-fill"
+    src="https://i.pinimg.com/474x/6c/f7/76/6cf776a98919c9092b5149e3aca4372b--the-best-chocolate-chip-cookie-recipe-chocolate-chip-cookie-sandwich.jpg"
+  />
+  <div class="card flex-fill">
+    <div class="card-body">
+      <ng-template #keystorePrompt>
+        <div class="mt-5 text-center">
+          <p>To create a quiz, please load a valid Arweave Keystore.</p>
+          <div class="custom-file mb-4">
+            <input
+              type="file"
+              class="custom-file-input"
+              id="keystorePicker"
+              (change)="handleKeyFile($event.target.files)"
+            />
+            <label class="custom-file-label" for="keystorePicker"
+              >Load Keystore</label
+            >
+          </div>
+          <p>
+            Need tokens or a wallet? Get some
+            <a
+              href="https://www.arweave.org/wallet"
+              target="_blank"
+              rel="noopener"
+              >here</a
+            >.
+          </p>
+        </div>
+      </ng-template>
+      <form *ngIf="key; else keystorePrompt" [formGroup]="pinForm">
+        <div class="custom-file mb-4">
+          <input type="file" class="custom-file-input" id="imagePicker" />
+          <label class="custom-file-label" for="imagePicker">Add image</label>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            id="titleInput"
+            placeholder="A captivating title *"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            formControlName="tags"
+            class="form-control"
+            placeholder="Tags"
+            aria-describedby="tagsHelp"
+          />
+          <small id="tagsHelp" class="form-text text-muted"
+            >Seperate each tag with a ' , '.</small
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="url"
+            formControlName="url"
+            class="form-control"
+            placeholder="Url"
+          />
+        </div>
+        <div class="form-group">
+          <textarea
+            formControlName="description"
+            class="form-control"
+            placeholder="Description"
+            rows="3"
+            aria-describedby="descriptionHelp"
+          ></textarea>
+          <small id="descriptionHelp" class="form-text text-muted"
+            >Say more about this pin!</small
+          >
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary">Pin!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
