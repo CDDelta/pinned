@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { flatMap, scan, tap, map } from 'rxjs/operators';
+import { NgxMasonryOptions } from 'ngx-masonry';
 import { Pin } from '../../models/pin';
 import { WithId } from '../../models/with-id';
 import { PinService } from '../../services/pin.service';
@@ -14,6 +15,8 @@ const PAGE_SIZE = 9;
   styleUrls: ['./pin-grid.component.scss'],
 })
 export class PinGridComponent implements OnInit {
+  @Input() public profileId: string;
+
   public pinsQuery$: Observable<{
     loading: boolean;
     atEnd: boolean;
@@ -22,6 +25,10 @@ export class PinGridComponent implements OnInit {
   public loadMoreEvent$ = new BehaviorSubject<any>(null);
 
   public imagePeerHost = environment.arweavePeerDomain;
+
+  public options: NgxMasonryOptions = {
+    gutter: 18,
+  };
 
   private pinIds: string[] = [];
   private pins$ = new BehaviorSubject<(Pin & WithId)[]>([]);
@@ -36,10 +43,10 @@ export class PinGridComponent implements OnInit {
         tap(() => this.pinsLoading$.next(true)),
         flatMap(() =>
           !this.pinIds.length
-            ? this.pinService.getPinIds()
+            ? this.pinService.getPinIds(this.profileId)
             : Promise.resolve(this.pinIds),
         ),
-        tap((quizIds) => (this.pinIds = quizIds)),
+        tap((pinIds) => (this.pinIds = pinIds)),
         flatMap(() =>
           Promise.allSettled(
             this.pinIds
@@ -72,6 +79,9 @@ export class PinGridComponent implements OnInit {
         loading,
         atEnd: this.lastPinIndex === this.pinIds.length,
         pins,
+        /*pins.length > 0
+            ? (new Array(8).fill(pins[0]) as (Pin & WithId)[])
+            : [],*/
       })),
     );
   }

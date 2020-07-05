@@ -1,22 +1,34 @@
-<ngx-masonry *ngIf="pinsQuery$ | async as query">
-  <div class="card" *ngFor="let pin of query.pins" ngxMasonryItem>
-    <img src="{{ imagePeerHost }}/{{ pin.imageId }}" class="card-img-top" />
-    <div class="card-body">
-      <h5 class="card-title">{{ pin.title }}</h5>
-      <div class="d-flex mb-3">
-        <span
-          *ngFor="let tag of pin.tags"
-          class="badge badge-pill badge-primary mr-1"
-          >{{ tag }}</span
-        >
+<ng-container *ngIf="pinsQuery$ | async as query">
+  <ngx-masonry [options]="options">
+    <div class="card mb-3" *ngFor="let pin of query.pins" ngxMasonryItem>
+      <img src="{{ imagePeerHost }}/{{ pin.imageId }}" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">{{ pin.title }}</h5>
+        <div class="d-flex flex-wrap mb-3">
+          <span
+            *ngFor="let tag of pin.tags"
+            class="badge badge-pill badge-primary mr-1"
+            >{{ tag }}</span
+          >
+        </div>
+        <small class="card-text">
+          <a
+            class="stretched-link"
+            routerLink="/u/{{ pin.profileId }}/p/{{ pin.id }}"
+            >See more...</a
+          >
+        </small>
       </div>
-      <small class="card-text">
-        <a
-          class="stretched-link"
-          routerLink="/u/{{ pin.profileId }}/p/{{ pin.id }}"
-          >See more...</a
-        >
-      </small>
+    </div>
+  </ngx-masonry>
+  <div *ngIf="query.loading" class="text-center mt-3">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
-</ngx-masonry>
+  <div *ngIf="!query.loading && !query.atEnd" class="text-center mt-3">
+    <button class="btn btn-outline-primary" (click)="loadMoreEvent$.next(null)">
+      See more!
+    </button>
+  </div>
+</ng-container>

@@ -44,7 +44,7 @@ export class UploadComponent implements OnInit {
   async publishPin(): Promise<void> {
     this.pinForm.markAllAsTouched();
 
-    if (this.pinForm.invalid) return;
+    if (this.pinForm.invalid || !this.imgFile) return;
 
     const formValue = this.pinForm.value;
 
