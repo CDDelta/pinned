@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { JWKInterface } from 'arweave/web/lib/wallet';
@@ -24,6 +25,9 @@ export class UploadComponent implements OnInit {
 
   public profile: Profile;
 
+  public imgFile: File;
+  public imgPreviewUrl: SafeUrl;
+
   public loadingProfile = false;
   public publishingPin = false;
 
@@ -32,6 +36,7 @@ export class UploadComponent implements OnInit {
     private profileService: ProfileService,
     private pinService: PinService,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {}
@@ -43,7 +48,7 @@ export class UploadComponent implements OnInit {
 
     const formValue = this.pinForm.value;
 
-    const pin: Pin = {
+    const pin: Partial<Pin> = {
       title: formValue.title,
       tags: (formValue.tags as string).split(',').map((t) => t.trim()),
       destinationUrl: formValue.url,
@@ -54,7 +59,7 @@ export class UploadComponent implements OnInit {
     this.pinForm.disable();
 
     const profileId = await this.profileService.getProfileIdFromKey(this.key);
-    const pinId = ''; //await this.pinService.publishPin(pin, this.key);
+    const pinId = await this.pinService.publishPin(pin, this.imgFile, this.key);
     this.router.navigateByUrl(`/u/${profileId}/p/${pinId}/status`);
   }
 
@@ -71,5 +76,18 @@ export class UploadComponent implements OnInit {
 
     this.loadingProfile = false;
     this.key = key;
+  }
+
+  async handleImageFile(files: FileList): Promise<void> {
+    this.imgFile = files.item(0);
+
+    const imgReader = new FileReader();
+
+    imgReader.onload = (e) =>
+      (this.imgPreviewUrl = this.sanitizer.bypassSecurityTrustUrl(
+        imgReader.result as string,
+      ));
+
+    imgReader.readAsDataURL(this.imgFile);
   }
 }

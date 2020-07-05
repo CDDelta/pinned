@@ -1,128 +1,137 @@
 <div class="container mb-3">
   <h1 class="mb-4">Add a Pin!</h1>
-  <div class="d-flex flex-column flex-md-row">
-    <div class="card flex-fill mb-3">
-      <ng-template #keystorePrompt>
-        <div *ngIf="!loadingProfile; else loadingSpinner" class="card-body">
-          <div class="my-5 text-center">
-            <p>To add a pin, please load a valid Arweave Keystore.</p>
+  <div class="row">
+    <div class="col-md-7 mb-3">
+      <div class="card">
+        <ng-template #keystorePrompt>
+          <div *ngIf="!loadingProfile; else loadingSpinner" class="card-body">
+            <div class="my-5 text-center">
+              <p>To add a pin, please load a valid Arweave Keystore.</p>
+              <div class="custom-file mb-4">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="keystorePicker"
+                  (change)="handleKeyFile($event.target.files)"
+                />
+                <label class="custom-file-label" for="keystorePicker"
+                  >Load Keystore</label
+                >
+              </div>
+              <p>
+                Need tokens or a wallet? Get some
+                <a
+                  href="https://www.arweave.org/wallet"
+                  target="_blank"
+                  rel="noopener"
+                  >here</a
+                >.
+              </p>
+            </div>
+          </div>
+          <ng-template #loadingSpinner>
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="spinner-border my-5" role="status">
+                <span class="sr-only">Loading profile...</span>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+        <ng-container *ngIf="key; else keystorePrompt">
+          <div class="card-header">
+            <p class="card-title">{{ profile.name || profile.id }}</p>
+            <small class="text-muted"
+              >Change your profile details by updating your Arweave ID
+              <a
+                href="https://prsr2ntfywm7sqjqmi3h7w6d5swozlahgwzvkescaqfyabkt2fwq.arweave.net/fGUdNmXFmflBMGI2f9vD7KzsrAc1s1USQgQLgAVT0W0"
+                target="_blank"
+                rel="noopener"
+                >here</a
+              >!
+            </small>
+          </div>
+          <form class="card-body" [formGroup]="pinForm">
             <div class="custom-file mb-4">
               <input
                 type="file"
                 class="custom-file-input"
-                id="keystorePicker"
-                (change)="handleKeyFile($event.target.files)"
+                id="imagePicker"
+                accept="image/"
+                (change)="handleImageFile($event.target.files)"
               />
-              <label class="custom-file-label" for="keystorePicker"
-                >Load Keystore</label
+              <label class="custom-file-label" for="imagePicker">{{
+                imgFile?.name || 'Add Image'
+              }}</label>
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="title"
+                class="form-control form-control-lg"
+                id="titleInput"
+                placeholder="A captivating title *"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                formControlName="tags"
+                class="form-control"
+                placeholder="Tags"
+                aria-describedby="tagsHelp"
+              />
+              <small id="tagsHelp" class="form-text text-muted"
+                >Seperate each tag with a ' , '.</small
               >
             </div>
-            <p>
-              Need tokens or a wallet? Get some
-              <a
-                href="https://www.arweave.org/wallet"
-                target="_blank"
-                rel="noopener"
-                >here</a
-              >.
-            </p>
-          </div>
-        </div>
-        <ng-template #loadingSpinner>
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="spinner-border my-5" role="status">
-              <span class="sr-only">Loading profile...</span>
+            <div class="form-group">
+              <input
+                type="url"
+                formControlName="url"
+                class="form-control"
+                placeholder="Url"
+              />
             </div>
-          </div>
-        </ng-template>
-      </ng-template>
-      <ng-container *ngIf="key; else keystorePrompt">
-        <div class="card-header">
-          <p class="card-title">{{ profile.name || profile.id }}</p>
-          <small class="text-muted"
-            >Change your profile details by updating your Arweave ID
-            <a
-              href="https://prsr2ntfywm7sqjqmi3h7w6d5swozlahgwzvkescaqfyabkt2fwq.arweave.net/fGUdNmXFmflBMGI2f9vD7KzsrAc1s1USQgQLgAVT0W0"
-              target="_blank"
-              rel="noopener"
-              >here</a
-            >!
-          </small>
-        </div>
-        <form class="card-body" [formGroup]="pinForm">
-          <div class="custom-file mb-4">
-            <input type="file" class="custom-file-input" id="imagePicker" />
-            <label class="custom-file-label" for="imagePicker">Add image</label>
-          </div>
-          <div class="form-group">
-            <input
-              type="text"
-              formControlName="title"
-              class="form-control form-control-lg"
-              id="titleInput"
-              placeholder="A captivating title *"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="text"
-              formControlName="tags"
-              class="form-control"
-              placeholder="Tags"
-              aria-describedby="tagsHelp"
-            />
-            <small id="tagsHelp" class="form-text text-muted"
-              >Seperate each tag with a ' , '.</small
-            >
-          </div>
-          <div class="form-group">
-            <input
-              type="url"
-              formControlName="url"
-              class="form-control"
-              placeholder="Url"
-            />
-          </div>
-          <div class="form-group">
-            <textarea
-              formControlName="description"
-              class="form-control"
-              placeholder="Description"
-              rows="3"
-              aria-describedby="descriptionHelp"
-            ></textarea>
-            <small id="descriptionHelp" class="form-text text-muted"
-              >Say more about this pin!</small
-            >
-          </div>
+            <div class="form-group">
+              <textarea
+                formControlName="description"
+                class="form-control"
+                placeholder="Description"
+                rows="3"
+                aria-describedby="descriptionHelp"
+              ></textarea>
+              <small id="descriptionHelp" class="form-text text-muted"
+                >Say more about this pin!</small
+              >
+            </div>
 
-          <p>
-            Due to the nature of Pinned your created pins cannot be modified or
-            deleted after publishing. Be sure to check it properly!
-          </p>
-          <div class="d-flex justify-content-end align-items-center">
-            <div
-              *ngIf="publishingPin"
-              class="spinner-border mr-4"
-              role="status"
-            >
-              <span class="sr-only">Adding pin...</span>
+            <p>
+              Due to the nature of Pinned your created pins cannot be modified
+              or deleted after publishing. Be sure to check it properly!
+            </p>
+            <div class="d-flex justify-content-end align-items-center">
+              <div
+                *ngIf="publishingPin"
+                class="spinner-border mr-4"
+                role="status"
+              >
+                <span class="sr-only">Adding pin...</span>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="publishPin()"
+              >
+                Pin!
+              </button>
             </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              (click)="publishPin()"
-            >
-              Pin!
-            </button>
-          </div>
-        </form>
-      </ng-container>
+          </form>
+        </ng-container>
+      </div>
     </div>
-    <img
-      class="order-md-first mr-md-3"
-      src="https://i.pinimg.com/474x/6c/f7/76/6cf776a98919c9092b5149e3aca4372b--the-best-chocolate-chip-cookie-recipe-chocolate-chip-cookie-sandwich.jpg"
-    />
+    <div class="col-md-5 order-md-first">
+      <img class="w-100" [src]="imgPreviewUrl" />
+    </div>
   </div>
 </div>
