@@ -2,7 +2,7 @@
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/cddelta/pinned/issues)
 
-This is a decentralized platform on the Arweave permaweb where can pin and share links that interest them with their Arweave ID!
+This is a decentralized platform on the Arweave permaweb where users can pin and share links that interest them with their Arweave ID!
 
 ## Features
 
