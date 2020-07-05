@@ -1,1 +1,24 @@
-<p>profile-pin-status works!</p>
+<div class="container">
+  <div class="card text-center">
+    <div class="card-body">
+      <div *ngIf="pinPublished$ | async; else pinPublishing">
+        <h2>This pin is published!</h2>
+        <a
+          class="btn btn-primary mt-2"
+          routerLink="/u/{{ profileId }}/p/{{ pinId }}"
+          >Play Now</a
+        >
+      </div>
+      <ng-template #pinPublishing>
+        <h2>This pin is being published...</h2>
+        <p>
+          You can safely close this window and check back later. <br />
+          This page will automatically update once the pin is published.
+        </p>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Publishing...</span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
