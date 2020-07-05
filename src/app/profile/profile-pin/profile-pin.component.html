@@ -1,1 +1,36 @@
-<p>profile-pin works!</p>
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-md-7 mb-3">
+      <div class="card">
+        <div class="card-header">
+          <h1>{{ pin.title }}</h1>
+          <a routerLink="/u/{{ profile.id }}"
+            ><small class="text-muted">{{
+              profile.name || profile.id
+            }}</small></a
+          >
+        </div>
+        <div class="card-body">
+          <div class="d-flex mb-3">
+            <span
+              *ngFor="let tag of pin.tags"
+              class="badge badge-pill badge-primary mr-1"
+              >{{ tag }}</span
+            >
+          </div>
+          <p class="card-text">{{ pin.description }}</p>
+          <a
+            *ngIf="pin.destinationUrl"
+            [href]="pin.destinationUrl"
+            target="_blank"
+            rel="noopener"
+            >See more...</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 order-md-first">
+      <img class="w-100" [src]="imageUrl" />
+    </div>
+  </div>
+</div>

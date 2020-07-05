@@ -4,6 +4,7 @@ import { ProfileDetailComponent } from './profile-detail/profile-detail.componen
 import { ProfilePinComponent } from './profile-pin/profile-pin.component';
 import { ProfilePinStatusComponent } from './profile-pin-status/profile-pin-status.component';
 import { ProfileResolverService } from './profile-resolver.service';
+import { PinResolverService } from './profile-pin/pin-resolver.service';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     component: ProfilePinComponent,
     resolve: {
       profile: ProfileResolverService,
+      pin: PinResolverService,
     },
   },
   {

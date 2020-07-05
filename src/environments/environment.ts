@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   appName: 'pinned',
   appVersion: '0.9.0',
+  arweavePeerDomain:
+    'https://tzzm25u6u64tn7eyt6vdubwucmp32sa3ifoqop4n5dmds3gycjbq.arweave.net',
 };
 
 /*
