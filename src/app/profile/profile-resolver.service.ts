@@ -26,7 +26,10 @@ export class ProfileResolverService implements Resolve<Profile> {
       take(1),
       mergeMap((profile) => {
         if (profile) {
-          return of(profile);
+          return of({
+            id: profileId,
+            ...profile,
+          });
         } else {
           this.router.navigateByUrl('/');
           return EMPTY;

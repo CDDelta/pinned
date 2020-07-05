@@ -38,7 +38,16 @@
       </ng-template>
       <ng-container *ngIf="key; else keystorePrompt">
         <div class="card-header">
-          <p>{{ profile.name }}</p>
+          <p class="card-title">{{ profile.name || profile.id }}</p>
+          <small class="text-muted"
+            >Change your profile details by updating your Arweave ID
+            <a
+              href="https://prsr2ntfywm7sqjqmi3h7w6d5swozlahgwzvkescaqfyabkt2fwq.arweave.net/fGUdNmXFmflBMGI2f9vD7KzsrAc1s1USQgQLgAVT0W0"
+              target="_blank"
+              rel="noopener"
+              >here</a
+            >!
+          </small>
         </div>
         <form class="card-body" [formGroup]="pinForm">
           <div class="custom-file mb-4">
@@ -87,6 +96,11 @@
               >Say more about this pin!</small
             >
           </div>
+
+          <p>
+            Due to the nature of Pinned your created pins cannot be modified or
+            deleted after publishing. Be sure to check it properly!
+          </p>
           <div class="d-flex justify-content-end align-items-center">
             <div
               *ngIf="publishingPin"
