@@ -4,6 +4,7 @@ import Arweave from 'arweave/web';
 import { JWKInterface } from 'arweave/web/lib/wallet';
 import Transaction from 'arweave/web/lib/transaction';
 import { environment } from '../../../environments/environment';
+import { WithId } from '../models/with-id';
 
 @Injectable({
   providedIn: 'root',
@@ -49,15 +50,15 @@ export class PinService {
     );
   }
 
-  async getPin(pinId: string): Promise<Pin> {
-    const pinJson = (await this.arweaveClient.transactions.getData(pinId, {
-      decode: true,
-      string: true,
-    })) as string;
+  async getPin(pinId: string): Promise<Pin & WithId> {
+    const pinTransaction = await this.arweaveClient.transactions.get(pinId);
 
-    const pin = JSON.parse(pinJson);
+    const pin = JSON.parse(atob(pinTransaction.data));
 
-    return pin;
+    return {
+      id: pinTransaction.id,
+      ...pin,
+    };
   }
 
   async publishPin(

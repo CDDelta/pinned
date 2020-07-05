@@ -22,6 +22,8 @@
     "arweave": "^1.7.1",
     "arweave-id": "git+https://github.com/ARCA-Arweave/arweave-id-v2.git",
     "bootstrap": "^4.5.0",
+    "masonry-layout": "^4.2.2",
+    "ngx-masonry": "^10.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

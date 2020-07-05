@@ -1,1 +1,22 @@
-<p>pin-grid works!</p>
+<ngx-masonry *ngIf="pinsQuery$ | async as query">
+  <div class="card" *ngFor="let pin of query.pins" ngxMasonryItem>
+    <img src="{{ imagePeerHost }}/{{ pin.imageId }}" class="card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title">{{ pin.title }}</h5>
+      <div class="d-flex mb-3">
+        <span
+          *ngFor="let tag of pin.tags"
+          class="badge badge-pill badge-primary mr-1"
+          >{{ tag }}</span
+        >
+      </div>
+      <small class="card-text">
+        <a
+          class="stretched-link"
+          routerLink="/u/{{ pin.profileId }}/p/{{ pin.id }}"
+          >See more...</a
+        >
+      </small>
+    </div>
+  </div>
+</ngx-masonry>

@@ -50,6 +50,7 @@ export class UploadComponent implements OnInit {
 
     const pin: Partial<Pin> = {
       title: formValue.title,
+      profileId: this.profile.id,
       tags: (formValue.tags as string).split(',').map((t) => t.trim()),
       destinationUrl: formValue.url,
       description: formValue.description,

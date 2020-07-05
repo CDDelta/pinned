@@ -1,3 +1,8 @@
 <section class="jumbotron container">
-  <h1>{{ profile.name }}</h1>
+  <h1>{{ profile.name || 'Anonymous' }}</h1>
+  <p class="text-muted">{{ profile.id }}</p>
+</section>
+
+<section class="container mb-3">
+  <app-pin-grid></app-pin-grid>
 </section>
